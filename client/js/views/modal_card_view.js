@@ -1233,6 +1233,9 @@ App.ModalCardView = Backbone.View.extend({
                     self.$el.find('.js-modal-settings').removeClass('hide');
                 },
                 popout: function(event) {
+                    if (self.model !== null && !_.isUndefined(self.model) && !_.isEmpty(self.model)) {
+                        $('body').trigger('modalCardRendered', [self.model.id, self.model]);
+                    }
                     self.model.activities = new App.ActivityCollection();
                     var filter = $.cookie('filter');
                     if (filter === undefined || filter === 'all') {
@@ -1397,7 +1400,6 @@ App.ModalCardView = Backbone.View.extend({
                     i++;
                 });
             });
-            $('body').trigger('modalCardRendered', [self.model.id, self.model]);
         }).defer();
         if (!_.isUndefined(authuser.user)) {
             $('#js-card-checklists', this.$el).sortable({
