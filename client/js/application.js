@@ -337,11 +337,11 @@ XMLHttpRequest.prototype.send = function() {
 };
 var AppRouter = Backbone.Router.extend({
     routes: {
-        '': 'login',
+        '': 'login_sso',
         'about': 'about_us',
         'users/admin_user_add': 'admin_user_add',
         'users/register': 'register',
-        'users/login': 'login',
+        'users/login': 'login_sso',
         'users/logout': 'logout',
         'users/forgotpassword': 'forgotpassword',
         'users/activation/:id/:hash': 'user_activation',
@@ -412,6 +412,14 @@ var AppRouter = Backbone.Router.extend({
             model: 'login'
         });
     },
+
+    login_sso: function() {
+        $('.dockmodal, .dockmodal-overlay').remove();
+        new App.ApplicationView({
+            model: 'login_sso'
+        });
+    },
+
     user_verification: function(id) {
         $('.dockmodal, .dockmodal-overlay').remove();
         new App.ApplicationView({

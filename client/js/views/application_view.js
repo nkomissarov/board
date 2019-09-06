@@ -7,7 +7,7 @@
 if (typeof App === 'undefined') {
     App = {};
 }
-var loginExceptionUrl = ['register', 'login', 'forgotpassword', 'user_activation', 'aboutus'];
+var loginExceptionUrl = ['register', 'login', 'login_sso', 'forgotpassword', 'user_activation', 'aboutus'];
 var adminUrl = ['roles', 'activities', 'users', 'boards/list', 'oauth_clients', 'apps', 'user_logins', 'settings', 'email_templates', 'user_logins'];
 var adminUrlModels = ['role_settings', 'activity_index', 'users_index', 'admin_boards_index', 'oauth_clients', 'apps', 'user_logins_index', 'settings', 'email_template_type', 'user_logins_index'];
 var exceptionAppPage = ['r_wikipages'];
@@ -796,6 +796,14 @@ App.ApplicationView = Backbone.View.extend({
                 var LoginUser = new App.User();
                 this.pageView = new App.LoginView({
                     model: LoginUser
+                });
+                $('#content').html(this.pageView.el);
+            } else if (page.model == 'login_sso') {
+                changeTitle(i18next.t('Login'));
+                $('.company').removeClass('hide');
+                var LoginSsoUser = new App.User();
+                this.pageView = new App.LoginSsoView({
+                    model: LoginSsoUser
                 });
                 $('#content').html(this.pageView.el);
             } else if (page.model == 'user_verification') {
